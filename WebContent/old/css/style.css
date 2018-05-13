@@ -1,0 +1,131 @@
+body{
+	font-family: 'Oswald', sans-serif;
+	background: #4EAFCD;
+}
+
+
+div.header {
+    background-color:#f7f7f7;
+    height:100px;
+    outline: solid 10px rgba(0,0,0,0.10);
+}
+
+div.header img {
+    width:250px;
+    height:auto;
+    max-height: 100%;
+}
+
+div.container {
+    
+    margin: auto;
+    padding: 215px 0;
+}
+
+
+#loginform {	
+	background-color: #f7f7f7;
+	display: block;
+	height: 270px;
+	margin: 0 auto;	
+	outline: solid 10px rgba(0,0,0,0.10);
+	width: 190px;
+	padding: 20px;
+}
+
+
+ 
+ .login-username label, .login-password label {
+	display: none;
+	text-indent: -9999px;
+}
+ 
+.login-username .input{ 
+	margin-top: 15px;
+ } 
+
+.login-password .input { margin-top: -14px;}
+ 
+ ::-moz-placeholder {  /* Firefox 19+ */
+   color: #4c4c4c;
+   text-transform: uppercase;
+}
+
+::-webkit-input-placeholder {
+   color: #5d5b5b;
+   text-transform: uppercase;
+}
+
+.input { 
+	background-color: #fff;
+	cursor: text;
+	border: solid 1px #dedede; 
+	box-sizing: border-box;
+	color: #4c4c4c;
+	font: 400 13px/18px 'oswald';
+	height: 40px;
+	margin-bottom: -18px;
+	outline: none;
+	padding: 8px 15px;
+	transition: border 0.3s;
+	width:100%;
+}
+
+.input:focus { border: solid 1px #f35b5b; }
+
+.login-username:after {
+	background-color: #f7f7f7;
+	color: #f35b5b;
+	height: 35px;
+	width: 35px;
+	float: right;
+	font: 400 24px 'oswald';
+	line-height: 43px;
+	position: relative;
+	overflow: hidden;
+	right: 2px;
+	text-align: center;
+	top: -24px;
+}
+
+
+select#soflow {
+  background-color: #fff;
+	cursor: text;
+	border: solid 1px #dedede; 
+	box-sizing: border-box;
+	color: #4c4c4c;
+	font: 400 13px/18px 'oswald';
+	height: 40px;
+	margin-bottom: -18px;
+	outline: none;
+	padding: 8px 15px;
+	transition: border 0.3s;
+	width:100%;
+}
+
+.button-primary {
+	background-color: #14b9d6;
+	border: solid 1px transparent; 
+	box-sizing: border-box;
+	color: #fff;
+	cursor: pointer;
+	font:  14px/36px 'oswald';
+	height: 42px;
+	letter-spacing: 1px;
+	margin-top: -11px;
+	outline: none;
+	text-align: center;
+	text-transform: uppercase;
+	transition: background-color 0.5s;
+	width: 100%;
+	margin-top: 15px;
+}
+
+.button-primary:hover {
+	background-color: #469DB6;
+
+}
+.login-remember { 
+	display: none;
+}

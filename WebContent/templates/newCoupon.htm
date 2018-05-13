@@ -1,0 +1,100 @@
+<div class="col-lg=6 col-md-6 col-sm-10 col-xs-12 mx-auto">
+	<div class="card with-shadow">
+		<div class="card-header">
+			<h2 class="text-center">New Coupon</h2>
+		</div>
+		<div class="card-block">
+			<form ng-submit="processForm()" class="form-group text-center">
+				<div class="row">
+					<div class="offset-lg-1 offset-md-1 col-lg-1 col-md-1 col-sm-4 col-xs-4">
+						<span id="inputType"><i class="fas fa-heading"></i></span>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+						<input class="form-control" type="text" name="title" placeholder="Coupon's Title" ng-model="couponData.title" required> 
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-lg-1 offset-md-1 col-lg-1 col-md-1 col-sm-4 col-xs-4">
+						<span id="inputType"><i class="fas fa-calendar-alt"></i></span>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+							Start Date
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<input class="form-control" type="date" name="startDate" placehoslder="Password" ng-model="couponData.startDate" required> 
+						</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-lg-1 offset-md-1 col-lg-1 col-md-1 col-sm-4 col-xs-4">
+						<span id="inputType"><i class="fas fa-calendar-alt"></i></span>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+							End Date
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<input class="form-control" type="date" name="endDate" placehoslder="Password" ng-model="couponData.endDate" required>
+						</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-lg-1 offset-md-1 col-lg-1 col-md-1 col-sm-4 col-xs-4">
+						<span id="inputType"><i class="fas fa-globe"></i></span>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+						<input class="form-control" type="number" name="amount" placeholder="Amount of Coupons" ng-model="couponData.amount" required> 
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-lg-1 offset-md-1 col-lg-1 col-md-1 col-sm-4 col-xs-4">
+						<span id="inputType"><i class="fas fa-filter"></i></span>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+						<select class="form-control" ng-model="couponData.type" name="type" required>
+							<option>Coupon type</option>
+      <option value="Electricity">Electricity</option>
+      <option value="Resturants">Resturants</option>
+      <option value="Health">Health</option>
+      <option value="Sports">Sports</option>
+      <option value="Camping">Camping</option>
+      <option value="Traveling">Traveling</option>
+      <option value="Pets">Pets</option>
+      <option value="Food">Food</option>
+						</select> 
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-lg-1 offset-md-1 col-lg-1 col-md-1 col-sm-4 col-xs-4">
+						<span id="inputType"><i class="fas fa-comments"></i></span>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+						<textarea class="form-control" type="textbox" name="message" ng-model="couponData.message" placeholder="Description" required></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-lg-1 offset-md-1 col-lg-1 col-md-1 col-sm-4 col-xs-4">
+						<span id="inputType"><i class="fas fa-dollar-sign"></i></span>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+						<input class="form-control" type="number" min="0" step=0.01 name="price" ng-model="couponData.price" placeholder="Price" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-lg-1 offset-md-1 col-lg-1 col-md-1 col-sm-4 col-xs-4">
+						<span id="inputType"><i class="fas fa-images"></i></span>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+						<input class="form-control" type="text" name="img" ng-model="couponData.img" placeholder="Image URL" required>
+					</div>
+				</div>
+				<button class="btn btn-primary" type="submit">Create</button>
+			</form>
+		</div>
+	</div>
+</div>

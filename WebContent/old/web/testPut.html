@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Demo</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	</head>
+<body>
+<h2 style="color:red;">
+This demo may not work as the request url is ASP.NET MVC Web  API and that API doesn't exists in this server.
+</h2>
+<hr />
+<script>
+    var myApp = angular.module("myApp", []);
+    myApp.controller("HttpPutController", function ($scope, $http) {
+
+        $scope.UpdateData = function () {
+            var data = {"id":12,"title":"Coca Cola 50%","startDate":"2017-09-01","endDate":"2020-02-12","amount":12,"couponType":"DRINKS","message":"Buy 6 pack coca cola drink and get 50% discount","price":0.0,"image":"https://www.cuckooforcoupondeals.com/wp-content/uploads/2013/01/CVS-Coke.png","companyID":4};
+
+            
+            $http.put('http://localhost:8080/couponProject/rest/coupons', JSON.stringify(data)).then(function (response) {
+            	if (response.data)
+            	$scope.msg = "Put Data Method Executed Successfully!";
+            	}, function (response) {
+            	$scope.msg = "Service not Exists";
+            	$scope.statusval = response.status;
+            	$scope.statustext = response.statusText;
+            	$scope.headers = response.headers();
+            	});
+            
+
+        };
+    });
+</script>
+<div ng-app="myApp" ng-controller="HttpPutController">
+    <h2>AngularJS Put request </h2>
+<!--
+    <form ng-submit="UpdateData()">
+        <p>First Name: <input type="text" name="firstName" ng-model="firstName" required /></p>
+        <p>Last Name: <input type="text" name="lastName" ng-model="lastName" required /></p>
+        <p>Age : <input type="number" name="age" ng-model="age" required /></p>
+        <input type="submit" value="Submit" />
+        <hr />
+        {{ ServerResponse }}
+    </form>
+-->
+    <button ng-click="UpdateData()">Update Button</button>
+</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<div class="col-lg-10 col-md-10 mx-auto">
+    <div class="row">
+        <div class="col-lg-4 col-md-4">
+            <div class="userDetails">
+                <p>Hello {{currentUserUserName}}</p>
+                <p>Emal: {{currentUserEmail}}</p>
+                <p>Name: {{currentUserName}}</p>
+                <p>User Name: {{currentUserUserName}}</p>
+                <button class="btn btn-primary" ng-click="editCustomerDetails()">Edit</button>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6" class="boughtRecently">
+            <h4 class="text-center">Recently bought coupons</h4>
+            <table class="table">
+                <thead>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>End Date</th>
+                    <th>Category</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="coupon in myCoupons track by $index | limitTo:4">
+                        <td>{{coupon.id}}</td>
+                        <td>{{coupon.title}}</td>
+                        <td>{{coupon.endDate}}</td>
+                        <td>{{coupon.type}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+         <div class="admin_tables" ng-show="updateSection">
+            <table class="table">
+                <thead>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Update</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <form class="form-group">
+                            <td>{{currentUserID}}</td>
+                            <td><input type="text" name="name" class="form-control" ng-model="updatedUser.name" placeholder="{{currentUserName}}"></td>
+                            <td><input type="text" name="userName" class="form-control" ng-model="updatedUser.userName" placeholder="{{currentUserUserName}}"></td>
+                            <td><input type="email" name="email" class="form-control" ng-model="updatedUser.email" placeholder="{{currentUserEmail}}"></td>
+                            <td>{{role}}</td>
+                            <td><button class="btn" ng-click="updateUser()"><i class="fas fa-exchange-alt"></button></i></td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+       </div> 
+    
+    <div class="allCoupons">
+            <div class="col-lg-4 col-md-4" ng-show="getCouponType">
+                        <select class="form-control" ng-change="selectUserType()" ng-model="type">
+                            <option value="Health">Health</option>
+                            <option value="Food">Food</option>
+                            <option value="Resturants">Resturants</option>
+                            <option value="Camping">Camping</option>
+                            <option value="Electricity">Electricity</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Pets">Pets</option>
+                            <option value="Traveling">Traveling</option>
+                        </select>
+                        <button class="btn btn-primary" ng-click="filterCoupons()">Filter</button>
+                    </div>
+                    <div class="col-lg-2 col-md-2">
+                        <button class="btn btn-success" ng-click="showAllCoupons()">All Coupons</button>
+                    </div>
+            <div class="admin_tables" ng-show="showCoupons">
+            <table class="table">
+                <thead>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Amount</th>
+                    <th>Price</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Details</th>
+                    <th>Buy now</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="coupon in coupons track by $index">
+                        <td>{{coupon.id}}</td>
+                        <td>{{coupon.title}}</td>
+                        <td>{{coupon.amount}}</td>
+                        <td>{{coupon.price}}</td>
+                        <td>{{coupon.startDate}}</td>
+                        <td>{{coupon.endDate}}</td>
+                        <td><button ng-click="getCouponDetails(coupon.id)" class="btn btn primary">Read More</button></td>
+                        <td><button ng-click="buyCoupon(coupon.id)" class="btn"><i class="fas fa-shopping-cart"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+</div>

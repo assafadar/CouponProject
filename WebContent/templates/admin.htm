@@ -1,0 +1,212 @@
+<div class="row">
+    <div class="col-lg-11 col-md-11 mx-auto">
+        <div class="welcome">
+                    <h3>Welcome {{currentUserName}}, user id: {{userID}}</h3>
+                    <p>Please select what you would like to do from the following filters:</p>
+                </div>
+        <!-- <div class="row">
+            <div class="col-lg-4 col-md-4">
+                    <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <button class="btn btn-primary" ng-click="showAllUsers()">All Users</button>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <button class="btn btn-primary" ng-click="getAllCoupons()">All Coupons</button>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5">
+                                <button class="btn btn-primary" ng-click="showActivatedUsers()">All Activated<br /> Users</button>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+               <div class="row">
+                   <div class="col-lg-4 col-md-4">
+                       <select class="form-control" ng-model="filter" name="filter">
+                           <option value="" disabled selected>Choose User</option>
+                           <option value="Customer">Customers</option>
+                           <option value="Company">Companies</option>
+                       </select>
+                   </div>
+                   <div class="col-lg-2 col-md-2">
+                       <button class="btn btn-success" ng-click="getUsersByType()">Filter!</button>
+                   </div>
+               </div>
+               <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <input type="number" ng-model="getUser.id" class="form-control" placeholder="ID">    
+                    </div>
+                    <div class="col-lg-2 col-md-2">
+                        <button class="btn btn-success" ng-click="getUser()">Go</button>    
+                    </div>    
+               </div>
+            </div>
+        </div> -->
+        <div class="filters">
+            <div class="row">
+                <div class="col-lg-5 col-md-5">
+                    <h4>Users Filter:</h4>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                  <select class="form-control" ng-change="selectFilter()" ng-model="filter"> 
+                    <option value="1">Get All Users</option>
+                    <option value="2">Get User</option>
+                    <option value="3">Get Users By Type</option>
+                    <option value="4">Get All Activated Users</option>
+                    <option value="5">Update User</option>
+                  </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5 col-md-5">
+                    <h4>Coupons Filter:</h4>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                  <select class="form-control" ng-change="selectFilter()" ng-model="filter"> 
+                    <option value="6">Get All Coupons</option>
+                    <option value="7">Get Coupon</option>
+                    <option value="8">Get Coupons By Type</option>
+                    <option value="9">Update Coupon</option>
+                  </select>
+                </div>
+            </div>
+            <div ng-show="getFilter">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4" ng-show="getIdForManipulation">
+                        <input type="number" ng-model="getFilterData.id" placeholder="ID">
+                        <button class="btn btn-primary" ng-click="doFilterWithID()">Filter</button>
+                    </div>
+                    <div class="col-lg-4 col-md-4" ng-show="getUserType">
+                        <select class="form-control" ng-change="selectUserType()" ng-model="type">
+                            <option value="Customer">Customer</option>
+                            <option value="Company">Company</option>
+                        </select>
+                        <button class="btn btn-primary" ng-click="doFilterWithString()">Filter</button>
+                    </div>
+                    <div class="col-lg-4 col-md-4" ng-show="getCouponType">
+                        <select class="form-control" ng-change="selectUserType()" ng-model="type">
+                            <option value="Health">Health</option>
+                            <option value="Food">Food</option>
+                            <option value="Pets">Pets</option>
+                            <option value="Resturants">Resturants</option>
+                            <option value="Camping">Camping</option>
+                            <option value="Electricity">Electricity</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Traveling">Traveling</option>
+                        </select>
+                        <button class="btn btn-primary" ng-click="doFilterWithString()">Filter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="admin-tables" ng-show="showUser">
+                <table class="table">
+                    <thead>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Password</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{user.id}}</td>
+                            <td>{{user.name}}</td>
+                            <td>{{user.userName}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.role}}</td>
+                            <th>{{user.password}}</th>
+                            <td><button class="btn" ng-click="updateThisUser(user.id)"><i class="fas fa-edit"></i></button></td>
+                            <td><button class="btn" ng-click="deleteUser(user.id)"><i class="fas fa-trash-alt"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <div class="admin-tables" ng-show="showUsers">
+            <table class="table">
+                <thead>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in users track by $index">
+                        <td>{{user.id}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.userName}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.role}}</td>
+                        <td><button class="btn" ng-click="updateThisUser(user.id)"><i class="fas fa-edit"></i></button></td>
+                        <td><button class="btn" ng-click="deleteUser(user.id)"><i class="fas fa-trash-alt"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-10 col-md-10 mx-auto">
+        <div class="admin_tables" ng-show="updatingUser">
+            <table class="table">
+                <thead>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Delete</th>
+                    <th>Update</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <form class="form-group">
+                            <td>{{selectedUserID}}</td>
+                            <td><input type="text" name="name" class="form-control" ng-model="updatedUser.name" placeholder="{{selectedUserName}}"></td>
+                            <td><input type="text" name="userName" class="form-control" ng-model="updatedUser.userName" placeholder="{{selectedUserUserName}}"></td>
+                            <td><input type="email" name="email" class="form-control" ng-model="updatedUser.email" placeholder="{{selectedUserEmail}}"></td>
+                            <td>{{selectedUserRole}}</td>
+                            <td><i class="fas fa-trash-alt" ng-click="deleteUser(selectedUserID)"></i></td>
+                            <td><button class="btn" ng-click="updateUser(selectedUserID)"><i class="fas fa-exchange-alt"></button></i></td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-10 col-md-10 mx-auto">
+        <div class="admin_tables" ng-show="showCoupons">
+            <table class="table">
+                <thead>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Amount</th>
+                    <th>Price</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <td>Title</td>
+                    <th>Details</th>
+                    <th>Delete</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="coupon in coupons track by $index">
+                        <td>{{coupon.id}}</td>
+                        <td>{{coupon.title}}</td>
+                        <td>{{coupon.amount}}</td>
+                        <td>{{coupon.price}}</td>
+                        <td>{{coupon.startDate}}</td>
+                        <td>{{coupon.endDate}}</td>
+                        <td>{{coupon.message}}</td>
+                        <td><button class="btn btn primary"  ng-click="getCouponDetails(coupon.id)">Read More</button></td>
+                        <td><button class="btn"  ng-click="removeCoupon(coupon.id)"><i class="fas fa-trash-alt"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

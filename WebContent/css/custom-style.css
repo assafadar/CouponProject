@@ -1,0 +1,38 @@
+.bottom{
+	margin-top: 5%;
+	padding-top: 5%;
+	padding-bottom: 5%;
+	background-color: #009fca;
+	color: #ffffff;
+}
+.welcome{
+	margin-bottom: 2%;
+}
+.row{
+	margin-bottom: 3%;
+}
+.card-header{
+	color: #fff;
+	background-color: #009fca;
+	margin-top: 0%;
+}
+.top_menu{
+	position: sticky;
+}
+.card{
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+.with-shadow{
+	box-shadow: 10px 10px 5px #888888;
+}
+.top_menu{
+	background-color: #009fca;
+}
+.top_menu a{
+	color: #fff;
+}
+#menu_btn{
+	margin-top: 4%;
+}
+

@@ -1,0 +1,49 @@
+<div class="col-lg=6 col-md-6 col-sm-10 col-xs-12 mx-auto">
+	<div class="card with-shadow">
+		<div class="card-header">
+			<h2 class="text-center">Contact Us</h2>
+		</div>
+		<div class="card-block">
+			<form ng-submit="contact()" class="form-group text-center">
+				<div class="row">
+					<div class="offset-lg-1 offset-md-1 col-lg-1 col-md-1 col-sm-4 col-xs-4">
+						<span id="inputType"><i class="fas fa-user"></i></span>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+						<input class="form-control" type="text" name="name" placeholder="Name" ng-model="contactRequest.name" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-lg-1 offset-md-1 col-lg-1 col-md-1 col-sm-4 col-xs-4">
+						<span id="inputType"><i class="fas fa-at"></i></span>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+						<input class="form-control" type="email" name="email" placeholder="Email Address" ng-model="contactRequest.email" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-lg-1 offset-md-1 col-lg-1 col-md-1 col-sm-4 col-xs-4">
+						<span id="inputType"><i class="fas fa-heading"></i></span>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+						<select class="form-control" name="subject" ng-model="contactRequest.subject" required>
+							<option value="support">Customer Suppot</option>
+							<option value="general">General</option>
+							<option value="advertising">Advertising</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-lg-1 offset-md-1 col-lg-1 col-md-1 col-sm-4 col-xs-4">
+						<span id="inputType"><i class="fas fa-comments"></i></span>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-10 col-xs-12">
+						<textarea class="form-control" type="textarea" name="message" ng-model="contactRequest.message" required>
+						</textarea>
+					</div>
+				</div>
+				<button class="btn btn-primary" type="submit">Contact Us</button>
+			</form>
+		</div>
+	</div>
+</div>

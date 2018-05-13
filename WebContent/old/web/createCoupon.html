@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<!--links for style-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--link for angular library-->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+
+<!--link for angular library for ngRoute functions-->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+
+<title>CoupoNet</title>
+</head>
+<body ng-app="couponApp2" ng-controller="couponCreateController">
+
+<!-- /../couponProject/rest/coupons -->
+
+<form ng-submit="processForm()">
+  Coupon Title: <input type="text" name="title" ng-model="formData.title" required><br>
+  Start Date: <input type=date name="startDate" id="startDate" ng-model="formData.startDate" min="{{currentDate | date: 'yyyy-MM-dd'}}" required><br>
+  End Date: <input type=date name="endDate" id="endDate" ng-model="formData.endDate" required><br>
+  Amount: <input type="number" name="amount" min="1" ng-model="formData.amount" required><br>
+  Type: 
+  <select name="couponType" ng-model="formData.couponType" required>
+      <option value="RESTURANS">RESTURANS</option>
+      <option value="ELECTRICITY">ELECTRICITY</option>
+      <option value="FOOD">FOOD</option>
+      <option value="DRINKS">DRINKS</option>
+      <option value="HEALTH">HEALTH</option>
+      <option value="SPORT">SPORT</option>
+      <option value="CAMPING">CAMPING</option>
+      <option value="TRAVELLING">TRAVELLING</option>
+      <option value="PETS">PETS</option>
+      <option value="CLOTHING">CLOTHING</option>
+  </select><br>
+  Coupon Message: <input type="text" name="message" ng-model="formData.message" required><br>
+  Price: <input type="number" name="price" min="0" step=0.01 ng-model="formData.price" required><br>
+  Image URL: <input type="url" name="image" ng-model="formData.image" required><br>
+  Company ID: <input type="number" name="companyID" min="1" ng-model="formData.companyID" required><br>
+  <input type="reset" value="Reset">
+  <input type="submit" value="Submit">
+</form>
+
+
+<pre>
+    {{formData}}
+</pre>
+
+
+<script>
+   
+   
+    var couponApp2 = angular.module('couponApp2', ['ngRoute']);
+    
+    couponApp2.controller('couponCreateController', function($scope,$http) {
+      
+    $scope.formData = {};
+    
+    
+    $scope.dateFormatConvert = function(dateToConvert){
+    	var mydate = new Date(dateToConvert);
+    	var month = mydate.getUTCMonth() + 1; //months from 1-12
+    	var day = mydate.getUTCDate();
+    	var year = mydate.getUTCFullYear();
+    	
+    	if (day<10) {day="0"+day};
+    	if (month<10) {month="0"+month};
+
+    	return newdate = ""+day + month + year;
+    	alert(" " + newdate);
+    }
+    
+    // process the form
+    $scope.processForm = function() {  
+    	$scope.formData.startDate=$scope.dateFormatConvert($scope.formData.startDate); //Converting start date to DDMMYYYY format
+    	$scope.formData.endDate=$scope.dateFormatConvert($scope.formData.endDate); //Converting start date to DDMMYYYY format
+    	console.log($scope.formData);
+    	$http.post('http://localhost:8080/couponProject/rest/coupons', $scope.formData).then(
+    			function success(a){
+    				alert("Coupon created successfully"); 
+                    console.log(a);
+                },
+                function failed(a){
+                	alert("Failed to create coupon"); 
+                    console.log(a);
+            },
+        );
+    }
+    
+    
+    //Validate start before end date and start begins from current date
+    $scope.currentDate = new Date();
+    
+    var startDate = document.getElementById('startDate');
+    var endDate = document.getElementById('endDate');
+
+    startDate.addEventListener('change', function() {
+        if (startDate.value)
+        	endDate.min = startDate.value;
+    }, false);
+    endDate.addEventListener('change', function() {
+        if (endDate.value)
+        	startDate.max = endDate.value;
+    }, false);
+    
+    
+    
+
+    });
+
+  
+  </script>
+
+
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+
+<html>
+
+<head>
+
+<!--links for style-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--link for angular library-->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+
+<!--link for angular library for ngRoute functions-->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+
+</head>
+
+
+
+<body ng-app="couponApp" ng-controller="mainController">
+
+
+
+	<div class="container">
+
+		<select ng-change="getSelectedTable()" ng-model="selectedTable">
+			<option value="customersTable">All Cusotmers</option>
+			<option value="companiesTable">All Companies</option>
+			<option value="couponsTable">All Coupons</option>
+		</select>
+
+		<div class="table-responsive">
+			<table ng-show="showCustomersTable"
+				class="table table-hover table-bordered">
+				<tr>
+					<th>Customer ID</th>
+					<th>Customer Name</th>
+					<th>Customer Email</th>
+				</tr>
+				<tr ng-repeat="customer in beans">
+					<td class="col-md-1">{{customer.customerId}}</td>
+					<td class="col-md-3">{{customer.customerName}}</td>
+					<td class="col-md-6">{{customer.customerEmail}}</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="table-responsive">
+			<table ng-show="showCompaniesTable"
+				class="table table-hover table-bordered">
+				<tr>
+					<th>Company ID</th>
+					<th>Company Name</th>
+					<th>Company Email</th>
+				</tr>
+				<tr ng-repeat="company in beans">
+					<td class="col-md-1">{{company.companyId}}</td>
+					<td class="col-md-3">{{company.companyName}}</td>
+					<td class="col-md-6">{{company.companyEmail}}</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="table-responsive">
+			<table ng-show="showCouponsTable"
+				class="table table-hover table-bordered">
+				<tr>
+					<th>Coupon ID</th>
+					<th>Title</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Amount</th>
+					<th>Type</th>
+					<th>Message</th>
+					<th>Price</th>
+					<th>Image</th>
+					<th>Action</th>
+				</tr>
+				<tr ng-repeat="coupon in beans track by $index"
+					ng-click="setSelected($index)">
+					<td class="col-md-1">{{coupon.id}}</td>
+					<td class="col-md-5">{{coupon.title}}</td>
+					<td class="col-md-1">{{coupon.startDate}}</td>
+					<td class="col-md-1">{{coupon.endDate}}</td>
+					<td class="col-md-1">{{coupon.amount}}</td>
+					<td class="col-md-2">{{coupon.couponType}}</td>
+					<td class="col-md-8">{{coupon.message}}</td>
+					<td class="col-md-1">{{coupon.price}}</td>
+					<td class="col-md-3"><img class="img-responsive"
+						ng-src="{{coupon.image}}"></td>
+					<td class="col-md-1"><button class="btn btn-default"
+							ng-click="removeCoupon($index)">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button></td>
+				</tr>
+			</table>
+		</div>
+
+
+	</div>
+
+
+
+	<script>
+   
+    var couponApp = angular.module('couponApp', ['ngRoute']);
+    
+      couponApp.controller('mainController', function($scope,$http) {
+      
+      $scope.beans=[];
+      $scope.companies=[];
+      $scope.coupons=[];
+      $scope.selectedTable=null;
+      $scope.showCustomersTable=null;
+      $scope.showCompaniesTable=null;
+      $scope.showCouponsTable=null;
+      $scope.restUrl=null;
+      $scope.selectedCoupon=null;
+
+      $scope.getSelectedTable = function(){
+          if ($scope.selectedTable == "customersTable") {
+              $scope.restUrl="http://localhost:8080/couponProject/rest/customers";
+              $scope.beans=$scope.getBeansInfo();
+              $scope.showCustomersTable=true;
+              $scope.showCompaniesTable=false;
+              $scope.showCouponsTable=false;
+          }
+          else if ($scope.selectedTable == "companiesTable") {
+              $scope.restUrl="http://localhost:8080/couponProject/rest/companies";
+              $scope.companies=$scope.getBeansInfo();
+              $scope.showCustomersTable=false;
+              $scope.showCompaniesTable=true;
+              $scope.showCouponsTable=false;
+          }
+          else if ($scope.selectedTable == "couponsTable") {
+              $scope.restUrl="http://localhost:8080/couponProject/rest/coupons";
+              $scope.coupons=$scope.getBeansInfo();
+              $scope.showCustomersTable=false;
+              $scope.showCompaniesTable=false;
+              $scope.showCouponsTable=true;
+          }
+      };
+          
+    
+          
+      $scope.getBeansInfo=function(){
+      $http.get($scope.restUrl).then(
+                function success(a){
+                    console.log(a);
+                    $scope.beans=a.data;
+                },
+                function failed(a){
+                    console.log(a);
+                console.log("Failed");
+            },
+          )          
+      };
+      
+      $scope.removeCoupon=function(index){
+          console.log("Remove Coupon " + $scope.beans[index].id);
+          couponId=$scope.beans[index].id;
+          if (confirm("Are you sure you want to remove coupon " + couponId + " ?") == true) {
+             console.log("deleting path " + $scope.restUrl+"/"+couponId);
+             $http.delete($scope.restUrl+"/"+couponId).then(
+                function success(a){
+                    console.log("deleting coupon " + couponId);
+                    $scope.getSelectedTable();
+                },
+                function failed(a){
+                    console.log(a);
+                    console.log("Failed");
+                }
+             )  
+           } 
+           else {
+             console.log("Coupon was not deleted");
+           };
+          //};
+//          alert("removeCoupon " + index); 
+          
+          
+          
+      };
+      
+      $scope.setSelected = function(index) {
+//          $scope.selectedCoupon=$scope.beans[index];
+//          alert("index= " + index); 
+//          console.log(index);
+//          console.log($scope.selectedCoupon);
+      };
+      
+    });
+
+  
+  </script>
+</body>
+
+</html>
